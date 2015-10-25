@@ -272,7 +272,7 @@ namespace cs_EVE_Character_Tracker
                 sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
                 txbSkillFThis.Text = sb.ToString();
                 sb.Clear();
-                sb.Append(endTime.ToLocalTime().ToShortDateString()).Append(" ")
+                sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
                     .Append(endTime.ToLocalTime().ToLongTimeString());
                 txbTrainingFThis.Text = sb.ToString();
             }
@@ -311,7 +311,7 @@ namespace cs_EVE_Character_Tracker
                 sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
                 txbSkill32.Text = sb.ToString();
                 sb.Clear();
-                sb.Append(endTime.ToLocalTime().ToShortDateString()).Append(" ")
+                sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
                     .Append(endTime.ToLocalTime().ToLongTimeString());
                 txbTraining32.Text = sb.ToString();
             }
@@ -353,7 +353,7 @@ namespace cs_EVE_Character_Tracker
                 sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
                 txbSkill31.Text = sb.ToString();
                 sb.Clear();
-                sb.Append(endTime.ToLocalTime().ToShortDateString()).Append(" ")
+                sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
                     .Append(endTime.ToLocalTime().ToLongTimeString());
                 txbTraining31.Text = sb.ToString();
 
@@ -367,8 +367,7 @@ namespace cs_EVE_Character_Tracker
                 cachedUntil.AddMilliseconds(_interval);
                 sb.Clear();
                 sb.Append("Next attempt: ")
-                    .Append(cachedUntil.ToLocalTime().ToShortDateString())
-                    .Append(" ")
+                    .Append(cachedUntil.ToLocalTime().ToLongDateString()).Append(" at ")
                     .Append(cachedUntil.ToLocalTime().ToLongTimeString());
                 txbNextPull.Text = sb.ToString();
                 sb.Clear();
