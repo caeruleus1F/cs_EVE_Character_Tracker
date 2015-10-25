@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Program: EVE Online Character Tracker
+ * Author: Garrett Bates
+ * IGN: Thirtyone Organism
+ * Last Mod: October 24, 2015
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -60,6 +67,10 @@ namespace cs_EVE_Character_Tracker
             LoadTypeIDs();
         }
 
+        /*
+         * Loads each line containing TypeIDs and TypeNames from the
+         * embedded resources file.
+         */
         private void LoadTypeIDs()
         {
             try
@@ -72,6 +83,10 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Takes the TypeID number associated with the skill that the character
+         * is training and translates it into a TypeName.
+         */
         private string GetSkillName(int typeID)
         {
             int index = BinarySearch(typeID);
@@ -85,6 +100,10 @@ namespace cs_EVE_Character_Tracker
             return skill_name;
         }
 
+        /*
+         * Binary search algo used to find the index value containing the
+         * desired TypeName.
+         */
         private int BinarySearch (int typeID)
         {
             int left = 0;
@@ -124,11 +143,18 @@ namespace cs_EVE_Character_Tracker
             return return_value;
         }
         
+        /*
+         * Handles the onClick event for btnQuery.
+         */
         private void btnQuery_Click(object sender, EventArgs e)
         {
             QueryServer();
         }
 
+        /*
+         * This is the main method called when the user clicks the 'Query'
+         * button. Subsequent calls originate from the timer.
+         */
         private void QueryServer()
         {
             try
@@ -149,6 +175,11 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses the balance value and outputs it to the relevant textbox.
+         */
         void _webWalletFThis_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -167,6 +198,11 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses the balance value and outputs it to the relevant textbox.
+         */
         void _webWallet32_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -185,6 +221,11 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses the balance value and outputs it to the relevant textbox.
+         */
         void _webWallet31_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -203,6 +244,14 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses skill and level being trained and completion time.
+         * Timer interval for all 6 WebClient instances is determined by
+         * the currentTime and cachedUntil values contained in the XML file
+         * associated with Thirtyone Organism's relevant server response.
+         */
         void _webTrainingFThis_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -234,6 +283,14 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses skill and level being trained and completion time.
+         * Timer interval for all 6 WebClient instances is determined by
+         * the currentTime and cachedUntil values contained in the XML file
+         * associated with Thirtyone Organism's relevant server response.
+         */
         void _webTraining32_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -265,6 +322,14 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Calls to the EVE Online API endpoint are made asyncronously.
+         * This function handles the DownloadStringCompleted event.
+         * Parses skill and level being trained and completion time.
+         * Timer interval for all 6 WebClient instances is determined by
+         * the currentTime and cachedUntil values contained in the XML file
+         * associated with Thirtyone Organism's relevant server response.
+         */
         void _webTraining31_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -315,6 +380,9 @@ namespace cs_EVE_Character_Tracker
             }
         }
 
+        /*
+         * Handles the timer tick event.
+         */
         private void timerAPICall_Tick(object sender, EventArgs e)
         {
             QueryServer();
