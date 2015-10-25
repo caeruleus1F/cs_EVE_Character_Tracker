@@ -165,8 +165,8 @@ namespace cs_EVE_Character_Tracker
                 _webTraining32.DownloadStringAsync(_trainingEndpoint32Uri);
                 _webWalletFThis.DownloadStringAsync(_walletEndpointFThisUri);
                 _webTrainingFThis.DownloadStringAsync(_trainingEndpointFThisUri);
-                txbStatus.Text = "Last attempt: " + DateTime.Now.ToShortDateString()
-                    + " " + DateTime.Now.ToLongTimeString();
+                txbStatus.Text = "Last attempt: " + DateTime.Now.ToLongDateString()
+                    + " at " + DateTime.Now.ToLongTimeString();
             }
             catch (Exception ex)
             {
