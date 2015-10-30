@@ -1,6 +1,6 @@
 # cs_EVE_Character_Tracker
 
-<put screenshot here>
+http://imgur.com/9e0Yj4Y - Screenshot
 
 Tracks the skill training status and wallet balance of three characters in EVE Online.
 
