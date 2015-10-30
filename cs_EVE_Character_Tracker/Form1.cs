@@ -269,7 +269,7 @@ namespace cs_EVE_Character_Tracker
                 skillTypeName = GetSkillName(skillTypeID);
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
+                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
                 txbSkillFThis.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
@@ -308,7 +308,7 @@ namespace cs_EVE_Character_Tracker
                 skillTypeName = GetSkillName(skillTypeID);
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
+                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
                 txbSkill32.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
@@ -350,7 +350,7 @@ namespace cs_EVE_Character_Tracker
                 skillTypeName = GetSkillName(skillTypeID);
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(" ").Append(", Rank ").Append(skillLevel);
+                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
                 txbSkill31.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
