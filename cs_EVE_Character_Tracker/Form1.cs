@@ -23,16 +23,16 @@ namespace cs_EVE_Character_Tracker
 {
     public partial class Form1 : Form
     {
-        WebClient _webTraining31 = new WebClient();
-        WebClient _webWallet31 = new WebClient();
+        CCPXMLInterfacer _webTraining31 = new CCPXMLInterfacer();
+        CCPXMLInterfacer _webWallet31 = new CCPXMLInterfacer();
 
-        WebClient _webTraining32 = new WebClient();
-        WebClient _webWallet32 = new WebClient();
+        CCPXMLInterfacer _webTraining32 = new CCPXMLInterfacer();
+        CCPXMLInterfacer _webWallet32 = new CCPXMLInterfacer();
 
-        WebClient _webTrainingFThis = new WebClient();
-        WebClient _webWalletFThis = new WebClient();
+        CCPXMLInterfacer _webTrainingFThis = new CCPXMLInterfacer();
+        CCPXMLInterfacer _webWalletFThis = new CCPXMLInterfacer();
 
-        List<string> _listOfTypeIDs;
+        SortedDictionary<string, string> _invTypes = new SortedDictionary<string,string>();
 
         Uri _walletEndpoint31Uri = new Uri("https://api.eveonline.com/char/AccountBalance.xml.aspx?&characterID=91810030&keyID=3890775&vCode=8w2EoSi0UyXXiSaagZnUN1ep2B6bkcFFCNd5CBsMnE7X5CHB3iHqYxEGubzBWP3c");
         Uri _walletEndpoint32Uri = new Uri("https://api.eveonline.com/char/AccountBalance.xml.aspx?&characterID=91995291&keyID=3033583&vCode=arLeZxr9AUImT3WGVOtOsMh3hTTjhginXFpu429WIcohRRKQPtJddSHZEnDdNmxq");
@@ -51,17 +51,11 @@ namespace cs_EVE_Character_Tracker
             timerAPICall.Interval = _interval;
             timerAPICall.Enabled = false;
 
-            _webTraining31.Proxy = null;
             _webTraining31.DownloadStringCompleted += _webTraining31_DownloadStringCompleted;
-            _webTraining32.Proxy = null;
             _webTraining32.DownloadStringCompleted += _webTraining32_DownloadStringCompleted;
-            _webTrainingFThis.Proxy = null;
             _webTrainingFThis.DownloadStringCompleted += _webTrainingFThis_DownloadStringCompleted;
-            _webWallet31.Proxy = null;
             _webWallet31.DownloadStringCompleted += _webWallet31_DownloadStringCompleted;
-            _webWallet32.Proxy = null;
             _webWallet32.DownloadStringCompleted += _webWallet32_DownloadStringCompleted;
-            _webWalletFThis.Proxy = null;
             _webWalletFThis.DownloadStringCompleted += _webWalletFThis_DownloadStringCompleted;
 
             LoadTypeIDs();
@@ -75,74 +69,20 @@ namespace cs_EVE_Character_Tracker
         {
             try
             {
-                _listOfTypeIDs = Properties.Resources.invTypes_Vanguard.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            }
-            catch (Exception ex)
-            {
+                List<string> temp = Properties.Resources.invTypes.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            }
-        }
-
-        /*
-         * Takes the TypeID number associated with the skill that the character
-         * is training and translates it into a TypeName.
-         */
-        private string GetSkillName(int typeID)
-        {
-            int index = BinarySearch(typeID);
-            string skill_name = "N/A";
-
-            if (index != -1)
-            {
-                skill_name = _listOfTypeIDs[index].Split(',')[1];
-            }
-
-            return skill_name;
-        }
-
-        /*
-         * Binary search algo used to find the index value containing the
-         * desired TypeName.
-         */
-        private int BinarySearch (int typeID)
-        {
-            int left = 0;
-            int right = _listOfTypeIDs.Count;
-            int mid = (left + right) / 2;
-            int current_typeID = 0;
-            int return_value = -1;
-
-            try
-            {
-                while (left <= right &&
-                    current_typeID != typeID)
+                foreach (string line in temp)
                 {
-                    current_typeID = Convert.ToInt32(_listOfTypeIDs[mid].Split(',')[0]);
-
-                    if (current_typeID > typeID)
-                    {
-                        right = mid - 1;
-                        mid = (left + right) / 2;
-                    }
-                    else if (current_typeID < typeID)
-                    {
-                        left = mid + 1;
-                        mid = (left + right) / 2;
-                    }
-                    else if (current_typeID == typeID)
-                    {
-                        return_value = mid;
-                    }
+                    string[] result = line.Split(',');
+                    _invTypes.Add(result[0], result[1]);
                 }
             }
             catch (Exception ex)
             {
 
             }
-
-            return return_value;
         }
-        
+
         /*
          * Handles the onClick event for btnQuery.
          */
@@ -188,7 +128,7 @@ namespace cs_EVE_Character_Tracker
             try
             {
                 xmldoc.LoadXml(e.Result);
-                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes[2].Value);
+                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes["balance"].Value);
                 txbWalletFThis.Text = balance.ToString("N2");
             }
             catch (Exception ex)
@@ -211,7 +151,7 @@ namespace cs_EVE_Character_Tracker
             try
             {
                 xmldoc.LoadXml(e.Result);
-                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes[2].Value);
+                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes["balance"].Value);
                 txbWallet32.Text = balance.ToString("N2");
             }
             catch (Exception ex)
@@ -234,7 +174,7 @@ namespace cs_EVE_Character_Tracker
             try
             {
                 xmldoc.LoadXml(e.Result);
-                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes[2].Value);
+                balance = Convert.ToDecimal(xmldoc.SelectSingleNode("/eveapi/result/rowset/row").Attributes["balance"].Value);
                 txbWallet31.Text = balance.ToString("N2");
             }
             catch (Exception ex)
@@ -257,19 +197,17 @@ namespace cs_EVE_Character_Tracker
             XmlDocument xmldoc = new XmlDocument();
             StringBuilder sb = new StringBuilder();
             DateTime endTime;
-            int skillTypeID = 0;
-            string skillTypeName = null;
+            string skillTypeID = null;
             string skillLevel = null;
 
             try
             {
                 xmldoc.LoadXml(e.Result);
                 endTime = Convert.ToDateTime(xmldoc.SelectSingleNode("/eveapi/result/trainingEndTime").InnerText);
-                skillTypeID = Convert.ToInt32(xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText);
-                skillTypeName = GetSkillName(skillTypeID);
+                skillTypeID = xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText;
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
+                sb.Append(_invTypes[skillTypeID]).Append(", Rank ").Append(skillLevel);
                 txbSkillFThis.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
@@ -296,19 +234,17 @@ namespace cs_EVE_Character_Tracker
             XmlDocument xmldoc = new XmlDocument();
             StringBuilder sb = new StringBuilder();
             DateTime endTime;
-            int skillTypeID = 0;
-            string skillTypeName = null;
+            string skillTypeID = null;
             string skillLevel = null;
 
             try
             {
                 xmldoc.LoadXml(e.Result);
                 endTime = Convert.ToDateTime(xmldoc.SelectSingleNode("/eveapi/result/trainingEndTime").InnerText);
-                skillTypeID = Convert.ToInt32(xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText);
-                skillTypeName = GetSkillName(skillTypeID);
+                skillTypeID = xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText;
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
+                sb.Append(_invTypes[skillTypeID]).Append(", Rank ").Append(skillLevel);
                 txbSkill32.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
@@ -335,8 +271,7 @@ namespace cs_EVE_Character_Tracker
             XmlDocument xmldoc = new XmlDocument();
             StringBuilder sb = new StringBuilder();
             DateTime endTime;
-            int skillTypeID = 0;
-            string skillTypeName = null;
+            string skillTypeID = null;
             string skillLevel = null;
             DateTime currentTime;
             DateTime cachedUntil;
@@ -346,11 +281,10 @@ namespace cs_EVE_Character_Tracker
             {
                 xmldoc.LoadXml(e.Result);
                 endTime = Convert.ToDateTime(xmldoc.SelectSingleNode("/eveapi/result/trainingEndTime").InnerText);
-                skillTypeID = Convert.ToInt32(xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText);
-                skillTypeName = GetSkillName(skillTypeID);
+                skillTypeID = xmldoc.SelectSingleNode("/eveapi/result/trainingTypeID").InnerText;
                 skillLevel = xmldoc.SelectSingleNode("/eveapi/result/trainingToLevel").InnerText;
 
-                sb.Append(skillTypeName).Append(", Rank ").Append(skillLevel);
+                sb.Append(_invTypes[skillTypeID]).Append(", Rank ").Append(skillLevel);
                 txbSkill31.Text = sb.ToString();
                 sb.Clear();
                 sb.Append(endTime.ToLocalTime().ToLongDateString()).Append(" at ")
