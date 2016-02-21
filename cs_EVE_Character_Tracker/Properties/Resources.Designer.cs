@@ -61,52 +61,7 @@ namespace cs_EVE_Character_Tracker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0,#System
-        ///2,Corporation
-        ///3,Region
-        ///4,Constellation
-        ///5,Solar System
-        ///6,Sun G5 (Yellow)
-        ///7,Sun K7 (Orange)
-        ///8,Sun K5 (Red Giant)
-        ///9,Sun B0 (Blue)
-        ///10,Sun F0 (White)
-        ///11,Planet (Temperate)
-        ///12,Planet (Ice)
-        ///13,Planet (Gas)
-        ///14,Moon
-        ///15,Asteroid Belt
-        ///16,Stargate (Caldari System)
-        ///17,Stargate (Amarr Constellation)
-        ///18,Plagioclase
-        ///19,Spodumain
-        ///20,Kernite
-        ///21,Hedbergite
-        ///22,Arkonor
-        ///23,Cargo Container
-        ///24,Ring
-        ///25,Corpse
-        ///26,Office Folder
-        ///27,Office
-        ///28,Factory Folder
-        ///29,Credits
-        ///30,Faction
-        ///34,Tritanium
-        ///35, [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string invTypes {
-            get {
-                return ResourceManager.GetString("invTypes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2403,Advanced Planetology
-        ///2406,Planetology
-        ///2495,Interplanetary Consolidation
-        ///2505,Command Center Upgrades
-        ///3184,ORE Industrial
-        ///3300,Gunnery
+        ///   Looks up a localized string similar to 3300,Gunnery
         ///3301,Small Hybrid Turret
         ///3302,Small Projectile Turret
         ///3303,Small Energy Turret
@@ -121,11 +76,15 @@ namespace cs_EVE_Character_Tracker.Properties {
         ///3312,Motion Prediction
         ///3315,Surgical Strike
         ///3316,Controlled Bursts
-        ///3317,Traje [rest of string was truncated]&quot;;.
+        ///3317,Trajectory Analysis
+        ///11082,Small Railgun Specialization
+        ///11083,Small Beam Laser Specialization
+        ///11084,Small Autocannon Specialization
+        ///1 [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string invTypes_Vanguard {
+        internal static string invTypes {
             get {
-                return ResourceManager.GetString("invTypes_Vanguard", resourceCulture);
+                return ResourceManager.GetString("invTypes", resourceCulture);
             }
         }
     }
